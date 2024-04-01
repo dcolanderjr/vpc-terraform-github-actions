@@ -1,3 +1,4 @@
+
 name: Terraform CI/CD Pipeline for Deploying AWS Resources
 run-name: ${{ github.actor }} has triggered the pipeline
 
@@ -48,6 +49,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Add Changes & Push to GitHub
         run: |
+          git config user.email "dcolanderjr@icloud.com"
+          git config user.name "dcolanderjr"
           git add .
           git commit -m "Updated Terraform Code, ${{ github.actor }} has triggered the pipeline. Latest commit ID: ${{ github.sha }}"
           git push -u origin main
