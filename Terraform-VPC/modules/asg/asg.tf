@@ -20,11 +20,11 @@ resource "aws_launch_template" "asg_1" {
   name_prefix   = var.name_prefix
   image_id      = var.image_id
   instance_type = var.instance_type
-  user_data     = file("${path.module}/user_data.sh")
+  #user_data     = file("${path.module}/user_data.sh")
   key_name      = var.key_name
   
   tags = var.asg_tags
-  
+
 }
 
 
