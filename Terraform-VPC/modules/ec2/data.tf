@@ -12,6 +12,3 @@ data "aws_availability_zones" "available" {
   state = var.az_status
 }
 
-data "aws_subnet_ids" "all" {
-  vpc_id = var.vpc_id
-}

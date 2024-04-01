@@ -9,7 +9,6 @@ variable "vpc_id" {
   type        = string
 }
 
-
 variable "vpc_cidr" {
   description = "The CIDR block for the VPC"
   type        = string
@@ -27,7 +26,7 @@ variable "vpc_tags" {
 
 variable "subnets" {
   description = "The name of the subnet"
-  type        = string
+  type        = list(string)
 }
 
 variable "subnet_cidr" {

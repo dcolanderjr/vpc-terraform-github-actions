@@ -31,7 +31,7 @@ variable "key_name" {
 
 variable "subnet_id" {
   description = "The ID of the subnet to launch the instance in"
-  type        = string
+  type        = list(string)
 }
 
 variable "associate_public_ip_address" {
@@ -44,7 +44,7 @@ variable "instance_tags" {
   type        = map(string)
 }
 
-variable "sg_id" {
+variable "security_group_id" {
   description = "The ID of the security group to assign to the instance"
   type        = string
 }
