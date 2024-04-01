@@ -74,3 +74,17 @@ module "loadbalancer" {
 
   depends_on = [module.vpc, module.security_group, module.ec2]
 }
+
+output "alb_dns_name" {
+  value = module.loadbalancer.alb_dns_name
+}
+
+output "ec2_public_ip" {
+  value = module.ec2.public_ip
+}
+
+output "ec2_instance_id" {
+  value = module.ec2.instance_id
+}
+
+
