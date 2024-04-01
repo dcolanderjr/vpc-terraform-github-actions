@@ -1,4 +1,3 @@
-
 name: Terraform CI/CD Pipeline for Deploying AWS Resources
 run-name: ${{ github.actor }} has triggered the pipeline
 
@@ -40,20 +39,23 @@ jobs:
         id: apply 
         run: terraform apply --auto-approve
         working-directory: ./Terraform-VPC
-    
+
   GitHub:
     name: Push Updated Code to GitHub
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.event.head_commit }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Add Changes & Push to GitHub
+      - name: Check for changes
         run: |
-          git config user.email "dcolanderjr@icloud.com"
-          git config user.name "dcolanderjr"
-          git add .
-          git commit -m "Updated Terraform Code, ${{ github.actor }} has triggered the pipeline. Latest commit ID: ${{ github.sha }}"
-          git push -u origin main
-          git status
+          if [ -n "$(git diff --exit-code)" ]; then
+            git config user.email "dcolanderjr@icloud.com"
+            git add .
+            git commit -m "Updated Terraform Code, ${{ github.actor }} has triggered the pipeline. Latest commit ID: ${{ github.sha }}"
+            git push -u origin main
+          else
+            echo "No changes to commit."
+          fi
 
             
