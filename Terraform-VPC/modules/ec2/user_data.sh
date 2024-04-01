@@ -79,6 +79,8 @@ sudo apt update -y
 sudo apt install -y nginx
 
 sudo apt install -y git
+
+sudo apt install -y unzip
     
 export META_INST_ID=`curl http://169.254.169.254/latest/meta-data/instance-id`
 export META_INST_TYPE=`curl http://169.254.169.254/latest/meta-data/instance-type`

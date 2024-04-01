@@ -95,7 +95,7 @@ security_group_tags = {
 }
 
 #### EC2 Definitions ####
-instance_count              = 2
+instance_count              = 4
 ami_most_recent             = true
 ami_owners                  = ["099720109477"]
 ami_name_pattern            = "*ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"
