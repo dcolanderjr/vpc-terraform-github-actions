@@ -177,7 +177,9 @@ echo "        </div>" >> index.html
 echo "</body>" >> index.html
 echo "</html>" >> index.html
 
-sudo systemctl start httpd
-sudo systemctl enable httpd
+sudo systemctl start nginx
+sudo systemctl enable nginx
 
 sudo rm -f /var/lib/cloud/instance/user-data.txt
+
+sudo init 6
