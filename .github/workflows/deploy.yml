@@ -53,7 +53,7 @@ jobs:
           git config user.name "dcolanderjr"
           git add .
           git commit -m "Updated Terraform Code, ${{ github.actor }} has triggered the pipeline. Latest commit ID: ${{ github.sha }}"
-          git push -u origin feature
+          git push -u origin main
           git status
 
             
