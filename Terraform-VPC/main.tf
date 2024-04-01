@@ -87,4 +87,6 @@ output "ec2_instance_id" {
   value = module.ec2.instance_id
 }
 
-
+output "ec2_instance_tags" {
+  value = module.ec2.instance_tags
+}
