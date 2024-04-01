@@ -50,6 +50,31 @@ module "ec2" {
   depends_on = [module.vpc, module.security_group]
 }
 
+# Auto Scaling Group
+module "asg" {
+  source                          = "./modules/asg/"
+  asg_name                        = var.asg_name
+  asg_termination_policies        = var.asg_termination_policies
+  image_id                        = var.image_id
+  asg_health_check_type           = var.asg_health_check_type
+  name_prefix                     = var.name_prefix
+  asg_min_size                    = var.asg_min_size
+  asg_health_check_grace_period   = var.asg_health_check_grace_period
+  asg_desired_capacity            = var.asg_desired_capacity
+  asg_max_size                    = var.asg_max_size
+  subnet_id                       = module.vpc.subnet_ids
+  instance_type                   = var.instance_type
+  asg_force_delete                = var.asg_force_delete
+  target_group_arns               = [module.loadbalancer.target_group_arn]
+  backend                         = var.backend
+  config                          = var.config
+  asg_tags                        = var.asg_tags
+  key_name                        = var.key_name
+
+  depends_on = [module.vpc, module.ec2, module.loadbalancer]
+}
+
+
 # Application Load Balancer
 module "loadbalancer" {
   source                          = "./modules/loadbalancer/"
@@ -73,4 +98,13 @@ module "loadbalancer" {
   security_group_id               = module.security_group.aws_security_group_id
 
   depends_on = [module.vpc, module.security_group, module.ec2]
+}
+
+data "terraform_remote_state" "lb" {
+  backend = "s3"
+  config = var.config
+
+  outputs = {
+    target_group_arn = "target_group_arn"
+  }
 }

@@ -146,3 +146,30 @@ condition = true
 instances = ["i-0470ff180018148f0", "i-0d9c180e96e4fe930"]
 
 #### Auto Scaling Group Definitions ####
+
+asg_name                      = "Terraform-Demo-ASG"
+asg_max_size                  = 5
+asg_min_size                  = 2
+asg_desired_capacity          = 3
+asg_health_check_type         = "EC2"
+asg_health_check_grace_period = 300
+asg_force_delete              = true
+asg_termination_policies      = ["OldestInstance", "NewestInstance"]
+target_group_arns             = [""]
+name_prefix                   = "Terraform-Demo-LaunchTemplate"
+image_id                      = "ami-080e1f13689e07408"
+asg_instance_type             = "t3.micro"
+
+asg_tags                      = {
+  Name      = "TFDemoASG"
+  Terraform = "true"
+  Project   = "Terraform VPC"
+}
+
+backend                       = "s3"
+
+config                       = {
+  bucket = "tfstate-devops-project-2024"
+  key    = "DevOps/terraform.tfstate"
+  region = "us-east-1"
+}
