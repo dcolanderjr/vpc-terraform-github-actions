@@ -11,7 +11,7 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
   # Specify the ECR repository name
-  ECR_REPOSITORY: public.ecr.aws/us-east-1/dc-gha-ecr-repo
+  ECR_REPOSITORY: 866934333672.dkr.ecr.us-east-1.amazonaws.com/terraform-demo-repo
   
 jobs:
   build-and-push:
@@ -47,10 +47,10 @@ jobs:
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_REGISTRY }}
 
       - name: Tag Docker image for ECR
-        run: docker tag docker.io/${{ secrets.DOCKER_USERNAME }}/vpc-terraform-github-actions:${{ github.sha }} public.ecr.aws/us-east-1/dc-gha-ecr-repo:${{ github.sha }}
+        run: docker tag docker.io/${{ secrets.DOCKER_USERNAME }}/vpc-terraform-github-actions:${{ github.sha }} 866934333672.dkr.ecr.us-east-1.amazonaws.com/terraform-demo-repo:${{ github.sha }}
 
       - name: Push Docker image to Amazon ECR
-        run: docker push public.ecr.aws/us-east-1/dc-gha-ecr-repo:${{ github.sha }}
+        run: docker push 866934333672.dkr.ecr.us-east-1.amazonaws.com/terraform-demo-repo:${{ github.sha }}
 
       - name: Trigger Terraform Workflow
         if: success()
