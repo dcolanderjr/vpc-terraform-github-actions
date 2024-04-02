@@ -1,6 +1,7 @@
 name: Terraform CI/CD Pipeline for Deploying AWS Resources
 run-name: ${{ github.actor }} has triggered the pipeline
 
+<<<<<<< HEAD:.github/workflows/terraform.yml
 on:
   push:
     branches:
@@ -8,6 +9,8 @@ on:
   pull_request:
     branches:
       - main
+=======
+>>>>>>> d9769870065b4d3a2b686c68368c8b24df3c6d0b:.github/workflows/deploy.yml
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -57,4 +60,8 @@ jobs:
             git push -u origin main
           else
             echo "No changes to commit."
+<<<<<<< HEAD:.github/workflows/terraform.yml
           fi
+=======
+          fi
+>>>>>>> d9769870065b4d3a2b686c68368c8b24df3c6d0b:.github/workflows/deploy.yml

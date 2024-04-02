@@ -107,7 +107,7 @@ subnet_id                   = ["", ""]
 security_group_id           = ""
 
 instance_tags = {
-  Name      = "TFDemoInstance"
+  Name      = "TFDemoInstances"
   Terraform = "true"
   Project   = "Terraform VPC"
 }
@@ -175,79 +175,55 @@ config                       = {
 }
 
 #### ECR Definitions ####
-effect_org_can_pull = "Allow"
-effect_github_actions_can_push = "Allow"
+effect_org_can_pull                             = "Allow"
+effect_github_actions_can_push                  = "Allow"
+sid_org_can_pull                                = "Allow Pull From Org"
+sid_github_actions_can_push                     = "Allow Push From GitHub Actions"
+ecr_actions_org_can_pull                        = ["ecr:GetDownloadUrlForLayer", "ecr:BatchGetImage", "ecr:BatchCheckLayerAvailability"]
+ecr_actions_github_actions_can_push             = ["ecr:GetDownloadUrlForLayer", "ecr:BatchGetImage", "ecr:BatchCheckLayerAvailability", "ecr:PutImage"]
+principal_type_org_can_pull                     = "AWS"
+principal_identifiers_org_can_pull              = ["*"]
+principal_type_github_actions_can_push          = "AWS"
+principal_identifiers_github_actions_can_push   = ["arn:aws:iam::866934333672:role/*"]
+condition_test                                  = "StringEquals"    
+condition_variable                              = "aws:PrincipalOrgID"
+condition_values                                = ["o-1a2b3c4d5e6f7g8h9"]
+github_iam_role                                 = "Terraform-Demo-GitHub-Role"
+backend_iam_role                                = "Terraform-Demo-Backend-Role"
+iam_role                                        = "deric-colander"
+repository_name                                 = "Terraform-Demo-Repository"
+image_tag_mutability                            = "IMMUTABLE"
+scan_on_push                                    = true
+encryption_type                                 = "KMS"
+lifecycle_policy_file                           = "policy.json"
+scan_type                                       = "ENHANCED"
+scan_frequency                                  = "CONTINUOUS_SCAN"
+repository_filter                               = "*"
+filter_type                                     = "WILDCARD"
 
-sid_org_can_pull = "All Accounts in the Org can pull"
-sid_github_actions_can_push = "Allow Push Only From Github Actions"
-
-ecr_actions_org_can_pull = [
-  "ecr:GetDownloadUrlForLayer",
-  "ecr:BatchGetImage",
-  "ecr:ListImages"
-]
-
-ecr_actions_github_actions_can_push = [
-  "ecr:BatchCheckLayerAvailability",
-  "ecr:CompleteLayerUpload",
-  "ecr:InitiateLayerUpload",
-  "ecr:PutImage",
-  "ecr:UploadLayerPart"
-]
-
-principal_type_org_can_pull = "AWS"
-principal_identifiers_org_can_pull = ["*"]
-
-principal_type_github_actions_can_push = "AWS"
-principal_identifiers_github_actions_can_push = ["arn:aws:iam::866934333672:role/*"]
-
-condition_test = "StringEquals"
-condition_variable = "aws:PrincipalAccount"
-condition_values = ["866934333672"]
-
-iam_role = "YOUR_IAM_ROLE_ARN"
-
-repository_name       = "dc-terraform-ecr-repo"
-lifecycle_policy_file = "policy.json"
-image_tag_mutability  = "IMMUTABLE"
-scan_on_push          = "true"
-encryption_type       = "KMS"
-scan_type             = "ENHANCED"
-scan_frequency        = "CONTINUOUS_SCAN"
-repository_filter     = "*"
-filter_type           = "WILDCARD"
-
-github_assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
+backend_assume_role_policy = jsonencode({
+  Version = "2012-10-17",
+  Statement = [
     {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "codebuild.amazonaws.com"
+      Effect    = "Allow",
+      Principal = {
+        Service = "*"
       },
-      "Action": "sts:AssumeRole"
+      Action    = "sts:AssumeRole"
     }
   ]
-}
+})
 
-EOF
-
-backend_assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
+github_assume_role_policy = jsonencode({
+  Version = "2012-10-17",
+  Statement = [
     {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "codebuild.amazonaws.com"
+      Effect    = "Allow",
+      Principal = {
+        Service = "*"
       },
-      "Action": "sts:AssumeRole"
+      Action    = "sts:AssumeRole"
     }
   ]
-}
+})
 
-EOF
-
-github_iam_role = "github-iam-role"
-backend_iam_role = "backend-iam-role"
