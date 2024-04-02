@@ -4,7 +4,9 @@ run-name: ${{ github.actor }} has triggered the pipeline
 on:
   push:
     branches:
-      - 'main'
+      - main
+      - feature/*
+      - dev/*
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
@@ -57,5 +59,3 @@ jobs:
           else
             echo "No changes to commit."
           fi
-
-            
