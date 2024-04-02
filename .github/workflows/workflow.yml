@@ -37,13 +37,13 @@ jobs:
 
       - name: Log in to Amazon ECR
         run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_REGISTRY }}
+          aws ecr get-login-password --region us-east-1 | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Tag Docker image for ECR
-        run: docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} ${{ secrets.AWS_ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+        run: docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} ${{ env.AWS_ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
       
       - name: Push Docker image to Amazon ECR
-        run: docker push ${{ secrets.AWS_ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+        run: docker push ${{ env.AWS_ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
         
       - name: Trigger Terraform Workflow
         if: success()
