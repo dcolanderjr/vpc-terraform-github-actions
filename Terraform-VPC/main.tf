@@ -100,6 +100,37 @@ module "loadbalancer" {
   depends_on = [module.vpc, module.security_group, module.ec2]
 }
 
+module "ecr" {
+  source                                        = "./modules/ecr/"
+  repository_name                               = var.repository_name
+  image_tag_mutability                          = var.image_tag_mutability
+  scan_on_push                                  = var.scan_on_push
+  encryption_type                               = var.encryption_type
+  lifecycle_policy_file                         = var.lifecycle_policy_file
+  scan_type                                     = var.scan_type
+  scan_frequency                                = var.scan_frequency
+  repository_filter                             = var.repository_filter
+  filter_type                                   = var.filter_type
+  ecr_actions_org_can_pull                      = var.ecr_actions_org_can_pull
+  ecr_actions_github_actions_can_push           = var.ecr_actions_github_actions_can_push
+  principal_type_org_can_pull                   = var.principal_type_org_can_pull
+  principal_identifiers_org_can_pull            = var.principal_identifiers_org_can_pull
+  principal_type_github_actions_can_push        = var.principal_type_github_actions_can_push
+  principal_identifiers_github_actions_can_push = var.principal_identifiers_github_actions_can_push
+  condition_test                                = var.condition_test
+  condition_variable                            = var.condition_variable
+  condition_values                              = var.condition_values
+  iam_role                                      = var.iam_role
+  sid_org_can_pull                              = var.sid_org_can_pull
+  sid_github_actions_can_push                   = var.sid_github_actions_can_push
+  effect_github_actions_can_push                = var.effect_github_actions_can_push
+  effect_org_can_pull                           = var.effect_org_can_pull
+  github_assume_role_policy                     = var.github_assume_role_policy
+  github_iam_role                               = var.github_iam_role
+  backend_assume_role_policy                    = var.backend_assume_role_policy
+  backend_iam_role                              = var.backend_iam_role
+}
+
 data "terraform_remote_state" "lb" {
   backend = "s3"
   config = var.config
