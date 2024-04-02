@@ -201,29 +201,35 @@ scan_frequency                                  = "CONTINUOUS_SCAN"
 repository_filter                               = "*"
 filter_type                                     = "WILDCARD"
 
-backend_assume_role_policy = jsonencode({
-  Version = "2012-10-17",
-  Statement = [
+backend_assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
     {
-      Effect    = "Allow",
-      Principal = {
-        Service = "*"
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
       },
-      Action    = "sts:AssumeRole"
+      "Action": "sts:AssumeRole"
     }
   ]
-})
+}
 
-github_assume_role_policy = jsonencode({
-  Version = "2012-10-17",
-  Statement = [
+EOF
+
+github_assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
     {
-      Effect    = "Allow",
-      Principal = {
-        Service = "*"
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ecr.amazonaws.com"
       },
-      Action    = "sts:AssumeRole"
+      "Action": "sts:AssumeRole"
     }
   ]
-})
+}
+
+EOF
 
