@@ -1,13 +1,6 @@
 name: Terraform CI/CD Pipeline for Deploying AWS Resources
 run-name: ${{ github.actor }} has triggered the pipeline
 
-on:
-  push:
-    branches:
-      - main
-      - feature/*
-      - dev/*
-
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -45,7 +38,6 @@ jobs:
   GitHub:
     name: Push Updated Code to GitHub
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.event.head_commit }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
