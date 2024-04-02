@@ -37,7 +37,9 @@ jobs:
 
       - name: Log in to Amazon ECR
         run: |
-          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_REGISTRY
+          echo ${{ secrets.AWS_SECRET_ACCESS_KEY }} | aws configure set aws_secret_access_key --profile temp-user
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_REGISTRY }}
+
       
       - name: Tag Docker image for ECR
         run: docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} $AWS_ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
