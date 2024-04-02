@@ -11,7 +11,7 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
   # Specify the ECR repository name
-  ECR_REPOSITORY: dc-gha-ecr-repo
+  ECR_REPOSITORY: https://gallery.ecr.aws/y8h2p9f1/dc-gha-ecr-repo
   
 jobs:
   build-and-push:
