@@ -32,6 +32,7 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+        working-directory: Terraform-VPC/modules/ecr/webapp  # Specify the directory here
       
       - name: Push Docker image to Docker Hub
         run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
@@ -51,8 +52,6 @@ jobs:
       - name: Push Docker image to Amazon ECR
         run: docker push public.ecr.aws/us-east-1/dc-gha-ecr-repo:${{ github.sha }}
 
-
-        
       - name: Trigger Terraform Workflow
         if: success()
         run: |
