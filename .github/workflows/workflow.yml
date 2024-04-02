@@ -31,10 +31,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+        run: docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ LATEST }} .
       
       - name: Push Docker image to Docker Hub
-        run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ LATEST }}
 
       - name: Log in to Amazon ECR
         env:
@@ -46,7 +46,7 @@ jobs:
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_REGISTRY }}
 
       - name: Tag Docker image for ECR
-        run: docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ LATEST }} ${{ secrets.AWS_ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+        run: docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ LATEST }} ${{ secrets.AWS_ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ LATEST }}
       
       - name: Push Docker image to Amazon ECR
         run: docker push public.ecr.aws/us-east-1/dc-gha-ecr-repo:${{ LATEST }}
