@@ -1,61 +1,61 @@
-# name: Terraform CI/CD Pipeline for Deploying AWS Resources
-# run-name: ${{ github.actor }} has triggered the pipeline
+name: Terraform CI/CD Pipeline for Deploying AWS Resources
+run-name: ${{ github.actor }} has triggered the pipeline
 
-# on:
-#   push:
-#     branches:
-#       - main
-#       - feature/*
-#       - dev/*
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+      - dev/*
 
-# env:
-#   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-#   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-# jobs:
-#   terraform_build_infrastructure: 
-#     name: Terraform-Workflow-CI/CD
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v2
-#       - name: Setup Terraform
-#         uses: hashicorp/setup-terraform@v2
-#       - name: Terraform Init
-#         id: init
-#         run: terraform init
-#         working-directory: ./Terraform-VPC
-#       - name: Terraform Format
-#         id: fmt
-#         run: terraform fmt
-#         working-directory: ./Terraform-VPC
-#       - name: Terraform Validate
-#         id: validate
-#         run: terraform validate
-#         working-directory: ./Terraform-VPC
-#       - name: Terraform Plan
-#         id: plan
-#         run: terraform plan
-#         working-directory: ./Terraform-VPC
-#       - name: Terraform Apply
-#         id: apply 
-#         run: terraform apply --auto-approve
-#         working-directory: ./Terraform-VPC
+jobs:
+  terraform_build_infrastructure: 
+    name: Terraform-Workflow-CI/CD
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: ./Terraform-VPC
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt
+        working-directory: ./Terraform-VPC
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate
+        working-directory: ./Terraform-VPC
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan
+        working-directory: ./Terraform-VPC
+      - name: Terraform Apply
+        id: apply 
+        run: terraform apply --auto-approve
+        working-directory: ./Terraform-VPC
 
-#   GitHub:
-#     name: Push Updated Code to GitHub
-#     runs-on: ubuntu-latest
-#     if: ${{ github.event_name == 'push' && github.event.head_commit }}
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v2
-#       - name: Check for changes
-#         run: |
-#           if [ -n "$(git diff --exit-code)" ]; then
-#             git config user.email "dcolanderjr@icloud.com"
-#             git add .
-#             git commit -m "Updated Terraform Code, ${{ github.actor }} has triggered the pipeline. Latest commit ID: ${{ github.sha }}"
-#             git push -u origin main
-#           else
-#             echo "No changes to commit."
-#           fi
+  GitHub:
+    name: Push Updated Code to GitHub
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && github.event.head_commit }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Check for changes
+        run: |
+          if [ -n "$(git diff --exit-code)" ]; then
+            git config user.email "dcolanderjr@icloud.com"
+            git add .
+            git commit -m "Updated Terraform Code, ${{ github.actor }} has triggered the pipeline. Latest commit ID: ${{ github.sha }}"
+            git push -u origin main
+          else
+            echo "No changes to commit."
+          fi
