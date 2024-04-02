@@ -135,7 +135,7 @@
       <label for="psw-repeat"><b>Ancient Secret, again: </b></label>
       <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
 
-      <p>When you create an account, you agree to the legal stuff. I eat sand. <a href="#">Terms & Privacy</a>.</p>
+      <p>When you create an account, you agree to the legal stuff.<a href="#">Terms & Privacy</a>.</p>
       <button type="submit" class="registerbtn">Register</button>
     </form>
   </div>
