@@ -11,7 +11,7 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: terraform-demo-repo:$latest
   # Specify the ECR repository name
-  ECR_REPOSITORY: 866934333672
+  ECR_REPOSITORY: 866934333672.dkr.ecr.us-east-1.amazonaws.com/terraform-demo-repo
   
 jobs:
   build-and-push:
