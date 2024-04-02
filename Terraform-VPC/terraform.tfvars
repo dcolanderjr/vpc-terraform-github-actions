@@ -107,7 +107,7 @@ subnet_id                   = ["", ""]
 security_group_id           = ""
 
 instance_tags = {
-  Name      = "TFDemoInstance"
+  Name      = "TFDemoInstances"
   Terraform = "true"
   Project   = "Terraform VPC"
 }
