@@ -7,11 +7,12 @@ on:
     branches: [ "dev", "main" ]
 
 env:
-  # Use docker.io for Docker Hub if empty
   REGISTRY: docker.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-
+  # Specify the ECR repository name
+  ECR_REPOSITORY: dc-gha-ecr-repo
+  
 jobs:
   build-and-push:
     name: Build and Push Docker Image
