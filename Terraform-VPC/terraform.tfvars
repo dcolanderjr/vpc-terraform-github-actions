@@ -143,7 +143,7 @@ default_action_target_group_arn = ""
 
 #### Target Group Attachment Definitions ####
 condition = true
-instances = ["i-0470ff180018148f0", "i-0d9c180e96e4fe930"]
+instances = ["i-06d36e3333f166375", "i-0883da27498edde77", "i-0e14c8d51837e18e0", "i-070a7aaf8119a8842"]
 
 #### Auto Scaling Group Definitions ####
 
