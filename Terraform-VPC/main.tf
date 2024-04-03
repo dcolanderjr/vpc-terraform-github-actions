@@ -131,6 +131,8 @@ module "ecr" {
   backend_iam_role                              = var.backend_iam_role
   create_ecr_repository                         = var.create_ecr_repository
 
+}
+
 data "terraform_remote_state" "lb" {
   backend = "s3"
   config = var.config
