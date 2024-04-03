@@ -129,7 +129,7 @@ module "ecr" {
   github_iam_role                               = var.github_iam_role
   backend_assume_role_policy                    = var.backend_assume_role_policy
   backend_iam_role                              = var.backend_iam_role
-}
+  create_ecr_repository                         = var.create_ecr_repository
 
 data "terraform_remote_state" "lb" {
   backend = "s3"
