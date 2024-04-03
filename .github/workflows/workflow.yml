@@ -54,7 +54,7 @@ jobs:
         run: docker push 866934333672.dkr.ecr.us-east-1.amazonaws.com/terraform-demo-repo:latest
 
       - name: Trigger Terraform Workflow
-        if: success()
+        if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         run: |
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
