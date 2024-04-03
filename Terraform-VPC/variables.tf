@@ -465,3 +465,8 @@ variable "github_assume_role_policy" {
   type        = string
   description = "Assume role policy for GitHub Actions"
 }
+
+variable "create_ecr_repository" {
+  description = "Controls whether to create the ECR repository"
+  type        = bool
+}
