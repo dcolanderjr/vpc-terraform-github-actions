@@ -100,8 +100,8 @@ module "loadbalancer" {
   depends_on = [module.vpc, module.security_group, module.ec2]
 }
 
-module "ecr" {
-  source                                        = "./modules/ecr/"
+/*  module "ecr" {
+  #source                                        = "./modules/ecr/"#
   repository_name                               = var.repository_name
   image_tag_mutability                          = var.image_tag_mutability
   scan_on_push                                  = var.scan_on_push
@@ -130,7 +130,7 @@ module "ecr" {
   backend_assume_role_policy                    = var.backend_assume_role_policy
   backend_iam_role                              = var.backend_iam_role
 
-}
+} */
 
 data "terraform_remote_state" "lb" {
   backend = "s3"
