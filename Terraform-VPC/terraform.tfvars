@@ -233,4 +233,4 @@ github_assume_role_policy = <<EOF
 
 EOF
 
-create_ecr_repository     =  true
+create_ecr_repository     =  false
