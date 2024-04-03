@@ -25,3 +25,7 @@ output "aws_ecr_repo_id" {
 output "aws_ecr_repo_registry_id" {
   value = aws_ecr_repository.repository[count.index].registry_id
 }
+
+output "existing_repo_url" {
+  value = data.aws_ecr_repository.existing_repo.repository_url
+}
