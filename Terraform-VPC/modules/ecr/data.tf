@@ -35,3 +35,6 @@ data "aws_iam_policy_document" "ecr_repo_policy" {
   }
 }
 
+data "aws_ecr_repository" "existing_repo" {
+  name = "terraform-demo-repo"
+}
