@@ -13,10 +13,10 @@ resource "aws_ecr_repository" "repository" {
     encryption_type = var.encryption_type
   }
 
-   lifecycle {
-    ignore_changes = [
-      all
-    ]
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes = ["image_tag_mutability", "image_scanning_configuration", "encryption_configuration", "encryption_configuration", "update", "name"]
+
   }
 }
 
