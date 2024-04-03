@@ -1,8 +1,8 @@
-data "aws_caller_identity" "current" {}
+/* data "aws_caller_identity" "current" {}
 
 # tfsec:ignore:aws-ecr-repository-customer-key
 resource "aws_ecr_repository" "repository" {
-  count                = var.create_ecr_repository ? 1 : 0
+  count                = var.create_ecr_repository
   name                 = var.repository_name
   image_tag_mutability = var.image_tag_mutability
 
@@ -47,3 +47,4 @@ resource "aws_iam_role" "github_iam_role" {
   name               = var.github_iam_role
   assume_role_policy = var.github_assume_role_policy
 }
+ */
