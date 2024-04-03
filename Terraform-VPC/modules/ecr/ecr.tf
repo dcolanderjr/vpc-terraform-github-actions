@@ -2,7 +2,6 @@ data "aws_caller_identity" "current" {}
 
 # tfsec:ignore:aws-ecr-repository-customer-key
 resource "aws_ecr_repository" "repository" {
-  count                = var.create_ecr_repository
   name                 = var.repository_name
   image_tag_mutability = var.image_tag_mutability
 
