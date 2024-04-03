@@ -11,6 +11,14 @@ resource "aws_ecr_repository" "repository" {
 
   encryption_configuration {
     encryption_type = var.encryption_type
+  
+lifecycle {
+    ignore_changes = [
+      all
+    ]
+  }
+}
+
   }
 }
 
