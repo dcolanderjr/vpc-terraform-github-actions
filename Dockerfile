@@ -1,7 +1,7 @@
 # Use the official Tomcat 9 image as the base image
 FROM tomcat:9-jdk11-openjdk
 
-# Remove the default ROOT application
+# Remove the default ROOT application OK
 RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
 # Copy your index.jsp file to the Tomcat webapps directory
