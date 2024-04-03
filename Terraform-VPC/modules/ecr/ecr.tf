@@ -1,4 +1,4 @@
-/* data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "current" {}
 
 # tfsec:ignore:aws-ecr-repository-customer-key
 resource "aws_ecr_repository" "repository" {
@@ -47,4 +47,4 @@ resource "aws_iam_role" "github_iam_role" {
   name               = var.github_iam_role
   assume_role_policy = var.github_assume_role_policy
 }
- */
+
